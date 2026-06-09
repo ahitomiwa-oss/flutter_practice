@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:practice_flutter/models/article.dart';
 import 'package:intl/intl.dart';
+import 'package:practice_flutter/screens/article_screen.dart';
 
 class ArticleContainer extends StatelessWidget {
   const ArticleContainer({
@@ -8,29 +9,44 @@ class ArticleContainer extends StatelessWidget {
     required this.article,
   });
 
- final Article article;
+  final Article article;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Padding(
       padding: const EdgeInsets.symmetric(
-        horizontal:20,
-        vertical: 16,
+        horizontal:16,
+        vertical: 12,
       ),
-      decoration: const BoxDecoration(
-        color: Color(0xFF55C500), //背景色
-        borderRadius: BorderRadius.all(
-          Radius.circular(32), //角丸
+      child: GestureDetector(
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: ((context) => ArticleScreen(article: article)),
+            ),            
+          );
+        },
+        child:Container(
+          padding:const EdgeInsets.symmetric(
+
+          horizontal:20,
+          vertical: 16,
         ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            DateFormat('yyyy/MM/dd').format(article.createdAt), //createdAt 
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.white,
+        decoration: const BoxDecoration(
+          color: Color(0xFF55C500), //背景色
+          borderRadius: BorderRadius.all(
+            Radius.circular(32), //角丸
+        ),
+       ),
+      
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              DateFormat('yyyy/MM/dd').format(article.createdAt), //createdAt 
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.white,
             ),
           ),
           //title
@@ -55,6 +71,7 @@ class ArticleContainer extends StatelessWidget {
           ),
 
           Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
@@ -84,14 +101,15 @@ class ArticleContainer extends StatelessWidget {
                     style: const TextStyle(
                       fontSize: 12,
                       color: Colors.white,
-                    ),
-                  ),
-                ],
-              ),
-            ],
+                        ),
+                     ),
+                   ],
+                 ),
+               ],
+             ),
+           ],
           ),
-
-        ],
+        ),
       ),
     );
   }
